@@ -19,18 +19,8 @@ class Result {
      */
 
     public static String findDay(int month, int day, int year) {
-     Calendar givenDate = Calendar.getInstance();
-     givenDate.set(year, month, day);
-     int dayofWeek = givenDate.get(givenDate.DAY_OF_WEEK);
-     String dayofweek = "";
-     if (dayofWeek == 1) dayofweek = "FRIDAY";
-        else if (dayofWeek == 2) dayofweek ="FRIDAY";
-        else if (dayofWeek == 3) dayofweek = "SATURDAY";
-        else if (dayofWeek == 4) dayofweek = "SUNDAY";
-        else if (dayofWeek == 5) dayofweek = "MONDAY";
-        else if (dayofWeek == 6) dayofweek = "TUESDAY";
-        else if (dayofWeek == 7) dayofweek = "WEDNESDAY";
-     return dayofweek;
+     LocalDate date = LocalDate.of(year, month, day);
+     return date.getDayOfWeek().toString();
     }
 
 }
