@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Solution {
 
     static boolean isAnagram(String firstWord, String secondWord) {
-        char[] firstWordArray = firstWord.toCharArray();
+          char[] firstWordArray = firstWord.toCharArray();
         char[] secondWordArray = secondWord.toCharArray();
 
         java.util.HashMap<Character, Integer> frequencyFirst = new java.util.HashMap<Character, Integer>();
@@ -15,8 +15,13 @@ public class Solution {
             char put = new Character(Character.toLowerCase(a));
 
             if (frequencyFirst.containsKey(put)) {
-                frequencyFirst.computeIfPresent(put, (k,v) -> v++);
-            }else frequencyFirst.putIfAbsent(put, count++);
+                /*count = 0;
+                count = frequencyFirst.get(put);
+                count++;
+                frequencyFirst.remove(put);
+                frequencyFirst.putIfAbsent(put, count);*/
+                frequencyFirst.computeIfPresent(put, (k,v) -> ++v);
+            }else frequencyFirst.putIfAbsent(put, ++count);
         }
         for (char a :secondWordArray)
         {
@@ -24,12 +29,21 @@ public class Solution {
             char put = new Character(Character.toLowerCase(a));
 
             if (frequencySecond.containsKey(put)) {
-                frequencySecond.computeIfPresent(put, (k,v) -> v++);
-            }else frequencySecond.putIfAbsent(put, count++);
+                /*count = 0;
+                count = frequencySecond.get(put);
+                count++;
+                frequencySecond.remove(put);
+                frequencySecond.putIfAbsent(put, count);*/
+                frequencySecond.computeIfPresent(put, (k,v) -> ++v);
+            }else frequencySecond.putIfAbsent(put, ++count);
         }
         java.util.Set<Character> firstKeys =  frequencyFirst.keySet();
         java.util.Set<Character> secondKeys = frequencySecond.keySet();
+        /*System.out.println(firstKeys);
+        System.out.println(secondKeys);*/
         Object[] compareFirstKeys = firstKeys.toArray();
+        Object[] compareSecondKeys = secondKeys.toArray();
+        if (firstWord.length() == secondWord.length()){
         for (int i = 0; i<compareFirstKeys.length;i++)
         {
            char c = (char) compareFirstKeys[i];
@@ -41,19 +55,33 @@ public class Solution {
                {
                    resultMap.put(c, true);
                }
+               else
+                   resultMap.put(c, false);
            }else
                resultMap.put(c, false);
         }
+        }
+        else {
+            for (int i = 0; i<compareSecondKeys.length;i++)
+            {
+               char c = (char) compareSecondKeys[i];
+               if (firstKeys.contains(c))
+               {
+                   int evalFirst = frequencyFirst.get(c);
+                   int evalSecond = frequencySecond.get(c);
+                   if (evalFirst == evalSecond)
+                   {
+                       resultMap.put(c, true);
+                   }
+                   else
+                       resultMap.put(c, false);
+               }else   resultMap.put(c, false);
+            }
+        }
+        /*resultMap.containsValue(false);
+        return false;
+        */
         return resultMap.containsValue(false) ? false : true;
     }
 
   public static void main(String[] args) {
-    
-        Scanner scan = new Scanner(System.in);
-        String a = scan.next();
-        String b = scan.next();
-        scan.close();
-        boolean ret = isAnagram(a, b);
-        System.out.println( (ret) ? "Anagrams" : "Not Anagrams" );
-    }
-}
