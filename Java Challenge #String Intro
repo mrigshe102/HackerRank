@@ -1,0 +1,38 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+   public static void main(String[] args) {
+
+        Scanner sc=new Scanner(System.in);
+        String A=sc.next();
+        String B=sc.next();
+
+        char a1 = A.charAt(0);
+        char b1 = B.charAt(0);
+        a1 = Character.toUpperCase(a1);
+        b1 = Character.toUpperCase(b1);
+
+        StringBuilder strA = new StringBuilder(A.replace(A.charAt(0), a1));
+        StringBuilder strB = new StringBuilder(B.replace(B.charAt(0), b1));
+
+        StringBuilder C = strA.append(" ");
+        C = C.append(strB);
+        System.out.println((C.length()-1));
+
+        boolean answer = Lexi (A, B);
+        System.out.println(answer ? "Yes" : "No");
+        System.out.println(C);
+    }
+
+  private static boolean Lexi(String a, String b)
+{
+      if (a.charAt(0)>b.charAt(0))
+      return true;
+      else return false;
+}
+}
+
+
+
